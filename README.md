@@ -1,1 +1,1 @@
-# langchain-hello-world
+Information Summarizer Agent
