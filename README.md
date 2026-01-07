@@ -1,1 +1,1 @@
-This is the LangChain/LangGraph Course in Udemy that i am learning
+This is the OG ReAct Agent Architecture which is useful for the learning purposes
