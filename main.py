@@ -8,6 +8,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers.pydantic import PydanticOutputParser
 
+#from langchain_ollama import ChatOllama
+
 from prompt import REACT_PROMPT_WITH_FORMATTING_INSTRUCTIONS
 from schemas import AgentResponse
 
@@ -15,7 +17,7 @@ load_dotenv()
 
 tavily_tool = [TavilySearch()]
 
-llm = ChatOpenAI(model = "gpt-4")
+llm = ChatOpenAI(model="gpt-4")
 
 react_prompt = hub.pull("hwchase17/react")
 
