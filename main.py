@@ -38,7 +38,8 @@ def main():
     Begin!
 
     Question: {input}
-    Thought:{agent_scratchpad}"""
+    Thought:
+    """
 
 
     prompt = PromptTemplate.from_template(template=template).partial(
@@ -46,6 +47,11 @@ def main():
              tool_names= ", ".join([t.name for t in tools]))
 
     llm = ChatOpenAI(temperature=0, stop=["\nObservation"])
+
+    agent = {"input": lambda x: x["input"]} | prompt | llm
+
+    response = agent.invoke({"input": "What is the Length of 'Jai' in characters?"})
+    print(response)
 
 
 
