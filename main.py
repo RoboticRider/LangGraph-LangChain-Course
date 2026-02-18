@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_core.tools import tool
+from langchain_ollama import ChatOllama
 from langchain_openai import ChatOpenAI
 from langchain_tavily import TavilySearch
 
@@ -16,16 +17,18 @@ def multiply(x: float, y: float) -> float:
 def main():
     print("Hello from langgraph-langchain-course!")
 
-    tools = [
+    tool_list = [
         TavilySearch(),
         multiply,
     ]
 
-    llm = ChatOpenAI(model="gpt-4", temperature=0)
+    #llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+    llm = ChatOllama(model="qwen3:0.6b", temperature=0)
 
     agent = create_agent(
         model=llm,
-        tools=tools,
+        tools=tool_list,
         system_prompt="You are a Weather assistant.",
     )
 
