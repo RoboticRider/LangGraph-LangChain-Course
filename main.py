@@ -40,5 +40,16 @@ def main():
         return "\n\n".join([doc.page_content for doc in docs])
 
 
+    def create_retrieval_chain_with_lcel():
+        """Creates a Retrieval chain using LCEL(LangChain Expression Language)"""
+
+        retrieval_chain = (
+            RunnablePassthrough.assign(context=itemgetter[str]("question") | retriever | format_docs)
+             
+            | promptTemplate | llm | StrOutputParser()
+        )
+
+        return retrieval_chain
+
 if __name__ == "__main__":
     main()
