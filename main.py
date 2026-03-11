@@ -44,12 +44,18 @@ def main():
         """Creates a Retrieval chain using LCEL(LangChain Expression Language)"""
 
         retrieval_chain = (
-            RunnablePassthrough.assign(context=itemgetter[str]("question") | retriever | format_docs)
+            RunnablePassthrough.assign(context=itemgetter("question") | retriever | format_docs)
              
             | promptTemplate | llm | StrOutputParser()
         )
 
         return retrieval_chain
+    
+    question = input("Ask a Question:- ")
+    retrieval_chain = create_retrieval_chain_with_lcel()
+    reponse = retrieval_chain.invoke({"question": question})
+    print(f"Answer:- {reponse}")
+
 
 if __name__ == "__main__":
     main()
