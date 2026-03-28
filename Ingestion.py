@@ -16,6 +16,9 @@ ssl_context = ssl.create_default_context(cafile=certifi.where())
 os.environ["SSL_CERT_FILE"] = certifi.where()
 os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
 
+embeddings = OllamaEmbeddings(model="qwen3-embedding")
+
+
 load_dotenv()
 
 
