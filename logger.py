@@ -1,39 +1,46 @@
-"""Small console helpers with ANSI colors."""
-
+# --------Documentation Assist Agent------
 from __future__ import annotations
+
+import sys
+from typing import Any
+
+HEADER = "--------Documentation Assist Agent------"
 
 
 class Colors:
+    """ANSI terminal colors."""
+
     RESET = "\033[0m"
     BOLD = "\033[1m"
-    DIM = "\033[2m"
     RED = "\033[31m"
     GREEN = "\033[32m"
     YELLOW = "\033[33m"
     BLUE = "\033[34m"
-    MAGENTA = "\033[35m"
     CYAN = "\033[36m"
 
 
-def _out(color: str, label: str, message: str) -> None:
-    print(f"{color}{Colors.BOLD}[{label}]{Colors.RESET} {message}")
+def log_header(message: str | None = None) -> None:
+    """Print the agent banner, optionally with an extra line."""
+    print(f"{Colors.BOLD}{Colors.CYAN}{HEADER}{Colors.RESET}", flush=True)
+    if message:
+        print(f"{Colors.CYAN}{message}{Colors.RESET}", flush=True)
 
 
-def log_header(message: str) -> None:
-    _out(Colors.MAGENTA, "HEADER", message)
+def log_info(*args: Any, sep: str = " ", end: str = "\n") -> None:
+    text = sep.join(str(a) for a in args)
+    print(f"{Colors.BLUE}{text}{Colors.RESET}", end=end, flush=True)
 
 
-def log_info(message: str) -> None:
-    _out(Colors.CYAN, "INFO", message)
+def log_success(*args: Any, sep: str = " ", end: str = "\n") -> None:
+    text = sep.join(str(a) for a in args)
+    print(f"{Colors.GREEN}{text}{Colors.RESET}", end=end, flush=True)
 
 
-def log_success(message: str) -> None:
-    _out(Colors.GREEN, "OK", message)
+def log_warning(*args: Any, sep: str = " ", end: str = "\n") -> None:
+    text = sep.join(str(a) for a in args)
+    print(f"{Colors.YELLOW}{text}{Colors.RESET}", end=end, flush=True)
 
 
-def log_warning(message: str) -> None:
-    _out(Colors.YELLOW, "WARN", message)
-
-
-def log_error(message: str) -> None:
-    _out(Colors.RED, "ERROR", message)
+def log_error(*args: Any, sep: str = " ", end: str = "\n") -> None:
+    text = sep.join(str(a) for a in args)
+    print(f"{Colors.RED}{text}{Colors.RESET}", end=end, file=sys.stderr, flush=True)

@@ -6,14 +6,7 @@ from typing import Any, Dict, List
 import certifi
 from dotenv import load_dotenv
 
-from logger import (
-    Colors,
-    log_error,
-    log_header,
-    log_info,
-    log_success,
-    log_warning,
-)
+from logger import Colors, log_error, log_header, log_info, log_success, log_warning
 from langchain_core.documents import Document
 from langchain_ollama import OllamaEmbeddings
 from langchain_pinecone import PineconeVectorStore
@@ -29,10 +22,10 @@ load_dotenv()
 
 
 def main():
-    print("In Ingestion Pipeline File")
-
+    log_header()
+    log_info("Ingestion pipeline starting")
     embeddings = OllamaEmbeddings(model="qwen3-embedding:0.6b")
-
+    log_success("Embeddings model ready:", embeddings.model)
 
 
 if __name__ == "__main__":
