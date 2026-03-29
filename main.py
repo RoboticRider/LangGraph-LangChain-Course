@@ -1,8 +1,17 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
 from crewai import Agent, Task, Crew, LLM
 
-def main():
+app = FastAPI()
 
-    user_input = input("Enter the Question:- ")
+
+# ✅ Request Body Model (INPUT ARGUMENT)
+class UserInput(BaseModel):
+    input_text: str
+
+
+# 🔹 Core CrewAI Logic
+def run_crew(user_input: str):
 
     researcher = Agent(
         role="Expert Educator",
@@ -32,10 +41,15 @@ def main():
     )
 
     result = crew.kickoff()
-
-    print("\n🔥 AGENT OUTPUT:\n")
-    print(result)
+    return str(result)
 
 
-if __name__ == "__main__":
-    main()
+# ✅ API Endpoint
+@app.post("/run-agent")
+def run_agent(data: UserInput):
+    output = run_crew(data.input_text)
+    return {
+        "status": "success",
+        "input": data.input_text,
+        "output": output
+    }
