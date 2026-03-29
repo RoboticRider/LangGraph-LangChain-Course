@@ -2,12 +2,12 @@ from crewai import Agent, Task, Crew, LLM
 
 def main():
 
-    user_input = "Explain Machine Learning and summarize it"
+    user_input = input("Enter the Question:- ")
 
     researcher = Agent(
-        role="Automation Architect",
-        goal="Understand requirement and design automation solution",
-        backstory="Expert in UiPath and intelligent automation",
+        role="Expert Educator",
+        goal="Understand requirement and give the answer to the query",
+        backstory="Expert in Understanding things and queries and Summarizing them",
         verbose=True,
         llm=LLM(model="ollama/qwen3:0.6b", temperature=0)
     )
