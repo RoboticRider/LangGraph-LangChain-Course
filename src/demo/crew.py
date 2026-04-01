@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, llm
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 # If you want to run a snippet of code before or after the crew starts,
@@ -22,14 +22,16 @@ class Demo():
     def researcher(self) -> Agent:
         return Agent(
             config=self.agents_config['researcher'], # type: ignore[index]
-            verbose=True
+            verbose=True,
+            llm=llm(model="ollama/llama3.1", base_url="http://localhost:11434")
         )
 
     @agent
     def reporting_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config['reporting_analyst'], # type: ignore[index]
-            verbose=True
+            verbose=True,
+            llm=llm(model="ollama/llama3.1", base_url="http://localhost:11434")
         )
 
     # To learn more about structured task outputs,
